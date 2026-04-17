@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gallery | Aliza Nadine Tattoos — Phoenix, AZ</title>
+  <meta name="description" content="Browse Aliza Nadine's full tattoo portfolio — black & grey realism, fine line, script, flash, and line work. Phoenix-based custom tattoo artist." />
+  <link rel="canonical" href="https://www.alizanadine.com/gallery.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://www.alizanadine.com/gallery.html" />
+  <meta property="og:title"       content="Portfolio Gallery | Aliza Nadine Tattoos" />
+  <meta property="og:description" content="Custom black & grey realism and fine line tattoo portfolio." />
+  <meta property="og:image"       content="https://www.alizanadine.com/images/og-cover.jpg" />
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Aliza Nadine Tattoo Portfolio",
+    "description": "Custom black & grey realism and fine line tattoo portfolio by Aliza Nadine, Phoenix AZ.",
+    "url": "https://www.alizanadine.com/gallery.html",
+    "author": {
+      "@type": "Person",
+      "name": "Aliza Nadine",
+      "url": "https://www.alizanadine.com"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Aliza Nadine Tattoos — Home">
+        Aliza <span>Nadine</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="ice-encounters.html">ICE Encounters</a></li>
+          <li class="nav-cta"><a href="/#booking" class="btn btn-primary">Book Now</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== GALLERY HERO ===== -->
+    <section class="gallery-hero">
+      <div class="container">
+        <span class="eyebrow">Portfolio</span>
+        <h1>The Work</h1>
+        <p>Every piece below is 100% custom — designed and executed for one person.</p>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section aria-label="Tattoo portfolio gallery">
+      <div class="container">
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" role="group" aria-label="Filter gallery by style">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="realism">Realism</button>
+          <button class="filter-btn" data-filter="script">Script</button>
+          <button class="filter-btn" data-filter="linework">Line Work</button>
+          <button class="filter-btn" data-filter="flash">Flash</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <!--
+          HOW TO ADD YOUR PHOTOS:
+          1. Upload images to the /images/ folder (or use Cloudinary URLs)
+          2. Copy a <div class="gallery-item"> block
+          3. Set data-category to: realism | script | linework | flash
+          4. Set src to your image path
+          5. Always fill in alt="" with a description for SEO
+        -->
+        <div class="gallery-grid">
+
+          <div class="gallery-item" data-category="realism">
+            <img src="images/gallery/realism-01.jpg" alt="Black and grey lion with leaves realism tattoo on forearm by Aliza Nadine Phoenix" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="realism">
+            <img src="images/gallery/realism-02.jpg" alt="Sugar skull with rose black and grey realism tattoo by Aliza Nadine" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="realism">
+            <img src="images/gallery/realism-03.jpg" alt="Joker playing card sleeve black and grey tattoo by Aliza Nadine Phoenix AZ" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="realism">
+            <img src="images/gallery/realism-04.jpg" alt="Joker cards forearm tattoo black and grey realism" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="realism">
+            <img src="images/gallery/realism-05.jpg" alt="Aztec calendar hand tattoo black and grey realism by Aliza Nadine" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="linework">
+            <img src="images/gallery/linework-01.jpg" alt="Familia fine line tree of life tattoo on arm by Aliza Nadine Phoenix" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="linework">
+            <img src="images/gallery/linework-02.jpg" alt="Lotus unalome fine line rib tattoo by Aliza Nadine Phoenix AZ" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="script">
+            <img src="images/gallery/script-01.jpg" alt="Isabella fine line script lettering tattoo on hand by Aliza Nadine" loading="lazy" />
+          </div>
+
+          <div class="gallery-item" data-category="script">
+            <img src="images/gallery/script-02.jpg" alt="Isabella custom script tattoo on hand Phoenix tattoo artist" loading="lazy" />
+          </div>
+
+        </div>
+        <!-- /gallery-grid -->
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-sm text-center" aria-label="Booking call to action">
+      <div class="container">
+        <div class="fade-in" style="max-width:520px; margin:0 auto;">
+          <span class="eyebrow">Ready?</span>
+          <h2>Let's Create Something Together</h2>
+          <p style="color:var(--muted); margin:16px 0 32px; font-size:0.95rem;">
+            Every tattoo starts with a conversation. Reach out and tell me your idea.
+          </p>
+          <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+            <a href="/#booking" class="btn btn-primary">Book a Session</a>
+            <a href="tel:+16029357020" class="btn btn-outline">Call / Text: 602.935.7020</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-logo">Aliza <span style="color:var(--red-light);">Nadine</span></div>
+          <p>Custom black &amp; grey realism and fine line tattoos in Phoenix, AZ. Every piece designed with precision, crafted with passion.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="/#booking">Book a Session</a></li>
+            <li><a href="ice-encounters.html">ICE Encounters</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+16029357020">602.935.7020</a></li>
+            <li><a href="https://maps.app.goo.gl/RygCkKoCQgCrkigaA" target="_blank" rel="noopener">4700 N 12th St, Ste 205</a></li>
+            <li><a href="https://maps.app.goo.gl/RygCkKoCQgCrkigaA" target="_blank" rel="noopener">Phoenix, AZ 85014</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Aliza Nadine at Jacob J Ink. All rights reserved.</span>
+        <span>Phoenix, AZ · By Appointment Only</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightboxClose" class="lightbox-close" aria-label="Close">×</button>
+    <button id="lightboxPrev"  class="lightbox-arrow lightbox-prev" aria-label="Previous">‹</button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="" />
+    <button id="lightboxNext"  class="lightbox-arrow lightbox-next" aria-label="Next">›</button>
+    <div id="lightboxCaption" class="lightbox-caption"></div>
+  </div>
+
+  <script src="js/particles.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
