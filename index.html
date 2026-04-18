@@ -61,6 +61,19 @@
       "latitude": 33.5140,
       "longitude": -112.0593
     },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "description": "By appointment only"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Phoenix" },
+      { "@type": "City", "name": "Scottsdale" },
+      { "@type": "City", "name": "Tempe" },
+      { "@type": "City", "name": "Glendale" },
+      { "@type": "City", "name": "Mesa" }
+    ],
+    "hasMap": "https://maps.app.goo.gl/RygCkKoCQgCrkigaA",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
@@ -162,11 +175,11 @@
             <h1 class="hero-title">
               <span class="grad-text">Black &amp; Grey</span><br />
               <em class="grad-text-red">Realism</em> <span class="grad-text">Tattoos</span><br />
-              <span class="grad-text">Done Right.</span>
+              <span class="grad-text">Phoenix, AZ.</span>
             </h1>
             <p class="hero-sub">
-              Custom fine line &amp; realism work that lasts a lifetime.
-              Every piece designed specifically for you.
+              Phoenix tattoo artist specializing in black &amp; grey realism and fine line work.
+              Every piece designed from scratch, just for you.
             </p>
             <div class="hero-actions">
               <a href="#booking" class="btn btn-primary">Book a Session</a>
@@ -293,14 +306,14 @@
             <span class="eyebrow">About Me</span>
             <h2>Art You'll Wear&nbsp;<em class="red">Forever.</em></h2>
             <p>
-              I'm Aliza Nadine — a Phoenix-based tattoo artist with a passion for bold realism,
-              fine line work, and custom script. I believe every tattoo should be a piece
-              of art that tells your story.
+              I'm Aliza Nadine — a tattoo artist based in Phoenix, AZ with a passion for
+              bold realism, fine line work, and custom script. Every tattoo I do is a
+              one-of-a-kind piece of art built around your story.
             </p>
             <p>
-              Based at Jacob J Ink in Phoenix, my studio is a private, comfortable space
-              where you can relax and trust the process. Whether it's your first tattoo
-              or your twentieth, I take the time to make sure you leave with something
+              I work out of <strong>Jacob J Ink</strong> in central Phoenix — a private,
+              comfortable studio where you can relax and trust the process. Whether it's
+              your first tattoo or your fiftieth, I'll make sure you leave with something
               you're proud to wear for life.
             </p>
             <div class="specialties-grid">
@@ -630,6 +643,12 @@
     <img id="lightboxImg" class="lightbox-img" src="" alt="" />
     <button id="lightboxNext"  class="lightbox-arrow lightbox-next" aria-label="Next">›</button>
     <div id="lightboxCaption" class="lightbox-caption"></div>
+  </div>
+
+  <!-- Sticky mobile CTA bar — shows on phones only -->
+  <div class="mobile-cta-bar" aria-label="Quick contact">
+    <a href="tel:+16029357020" class="mobile-cta-call">📞 Call / Text</a>
+    <a href="#booking" class="mobile-cta-book">Book Now</a>
   </div>
 
   <script src="js/particles.js" defer></script>

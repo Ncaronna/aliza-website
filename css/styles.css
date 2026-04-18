@@ -1060,6 +1060,52 @@ h3 { font-size: 1.2rem; }
   100% { left: 150%; }
 }
 
+/* ---------- Sticky mobile CTA bar ---------- */
+.mobile-cta-bar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-cta-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 300;
+    background: rgba(10,10,10,0.97);
+    border-top: 1px solid var(--glass-border);
+    padding: 10px 16px 14px;
+    gap: 10px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .mobile-cta-call,
+  .mobile-cta-book {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 8px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+  }
+  .mobile-cta-call:active,
+  .mobile-cta-book:active { opacity: 0.75; }
+  .mobile-cta-call {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+  }
+  .mobile-cta-book {
+    background: var(--red);
+    color: #fff;
+  }
+  /* Keep content above the bar */
+  body { padding-bottom: 80px; }
+}
+
 /* ---------- FAQ ---------- */
 #faq h2 { text-align: center; margin-bottom: 40px; }
 .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
