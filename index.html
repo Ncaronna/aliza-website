@@ -26,6 +26,9 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
 
+  <!-- Preload hero image — improves LCP score -->
+  <link rel="preload" as="image" href="images/hero-portrait.jpg" />
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -64,6 +67,56 @@
       "reviewCount": "100"
     },
     "sameAs": []
+  }
+  </script>
+
+  <!-- FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where is the tattoo studio located?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aliza works out of Jacob J Ink, located at 4700 N 12th St, Suite 205, Phoenix, AZ 85014."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tattoo styles does Aliza specialize in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aliza specializes in realism, fine-line, script, and flash tattoos, including photorealistic portraits, delicate botanical linework, elegant lettering, and ready-to-go flash designs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I book a tattoo appointment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fill out the booking form on alizanadine.com with your idea, preferred size, and placement. Aliza will follow up to discuss the design, provide a quote, and schedule your session. A deposit is required to hold your appointment date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a tattoo cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pricing depends on size, complexity, placement, and style. Small flash pieces start around $100–$150, while larger custom work is quoted individually."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Aliza cover up or rework an old tattoo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Aliza has extensive experience with cover-ups and reworks. Send a clear photo of your existing tattoo along with your ideas through the booking form."
+        }
+      }
+    ]
   }
   </script>
 
@@ -141,6 +194,8 @@
               src="images/hero-portrait.jpg"
               alt="Aliza Nadine — Phoenix tattoo artist"
               class="hero-img"
+              width="600" height="750"
+              fetchpriority="high"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             <div class="hero-img-placeholder" style="display:none;">
@@ -477,6 +532,41 @@
               referrerpolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section" id="faq" aria-label="Frequently asked questions">
+      <div class="container">
+        <h2 class="fade-in">Frequently Asked <span class="grad-text-red">Questions</span></h2>
+        <div class="faq-list fade-in">
+
+          <details class="faq-item">
+            <summary class="faq-q">Where is the tattoo studio located?</summary>
+            <p class="faq-a">Aliza works out of <strong>Jacob J Ink</strong>, located at <strong>4700 N 12th St, Suite 205, Phoenix, AZ 85014</strong>. Free parking is available on-site. <a href="https://maps.app.goo.gl/RygCkKoCQgCrkigaA" target="_blank" rel="noopener">Get directions →</a></p>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">What tattoo styles does Aliza specialize in?</summary>
+            <p class="faq-a">Aliza specializes in <strong>realism, fine-line, script, and flash tattoos</strong>. Whether you're looking for a photorealistic portrait, delicate botanical linework, elegant lettering, or a ready-to-go flash design, she brings each piece to life with precision and artistry.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">How do I book a tattoo appointment?</summary>
+            <p class="faq-a">Fill out the booking form on this page with your idea, preferred size, and placement. Aliza will follow up to discuss your design, provide a quote, and schedule your session. A deposit is required to hold your appointment date.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">How much does a tattoo cost?</summary>
+            <p class="faq-a">Pricing depends on size, complexity, placement, and style. Small flash pieces start around $100–$150, while larger custom work is quoted individually. Reach out through the booking form for an accurate estimate — no commitment required.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">Can Aliza cover up or rework an old tattoo?</summary>
+            <p class="faq-a">Yes! Aliza has extensive experience with cover-ups and reworks. Send a clear photo of your existing tattoo along with your ideas through the booking form and she'll let you know what's possible.</p>
+          </details>
+
         </div>
       </div>
     </section>
