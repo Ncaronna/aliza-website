@@ -229,9 +229,9 @@ h3 { font-size: 1.2rem; }
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
-  padding: calc(var(--nav-h) + 20px) 0 60px;
+  padding: calc(var(--nav-h) + 48px) 0 80px;
   background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(179,18,23,0.12), transparent 70%);
   overflow: hidden;
 }
@@ -338,6 +338,7 @@ h3 { font-size: 1.2rem; }
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
+  object-position: 80% 15%; /* face is upper-right in the source photo */
 }
 .hero-img-placeholder {
   position: relative;
