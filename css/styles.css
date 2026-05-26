@@ -236,17 +236,16 @@ h3 { font-size: 1.2rem; }
   overflow: hidden;
 }
 
-/* subtle animated dot grid */
+/* subtle static dot grid — no animation (was causing continuous repaints) */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 32px 32px;
-  animation: gridFade 6s ease-in-out infinite alternate;
+  opacity: 0.6;
   pointer-events: none;
 }
-@keyframes gridFade { from { opacity: 0.4; } to { opacity: 0.8; } }
 
 .hero-inner {
   position: relative;
@@ -1008,40 +1007,24 @@ h3 { font-size: 1.2rem; }
 /* ---------- Magnetic button effect ---------- */
 .btn { will-change: transform; }
 
-/* ---------- Card hover glow — reacts to mouse ---------- */
+/* ---------- Card hover — simple border lift (no mousemove repaint) ---------- */
 .work-card,
 .review-card,
 .contact-card,
 .rights-card,
 .resource-card {
-  --card-mx: 50%;
-  --card-my: 50%;
   position: relative;
   overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.work-card::after,
-.review-card::after,
-.contact-card::after,
-.rights-card::after,
-.resource-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    220px circle at var(--card-mx) var(--card-my),
-    rgba(179, 18, 23, 0.08),
-    transparent 80%
-  );
-  transition: opacity 0.3s;
-  border-radius: inherit;
+.work-card:hover,
+.review-card:hover,
+.contact-card:hover,
+.rights-card:hover,
+.resource-card:hover {
+  border-color: rgba(179, 18, 23, 0.35);
+  transform: translateY(-2px);
 }
-.work-card:hover::after,
-.review-card:hover::after,
-.contact-card:hover::after,
-.rights-card:hover::after,
-.resource-card:hover::after { opacity: 1; }
 
 /* ---------- Hero title gradient ---------- */
 .hero-title { letter-spacing: -0.03em; }

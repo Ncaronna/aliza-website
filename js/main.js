@@ -229,44 +229,5 @@ if (form) {
   }
 })();
 
-// ---------- 2. Card inner glow — follows mouse within each card ----------
-(function cardGlow() {
-  const cards = document.querySelectorAll(
-    '.work-card, .review-card, .contact-card, .rights-card, .resource-card, .gallery-item'
-  );
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r   = card.getBoundingClientRect();
-      const x   = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
-      const y   = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
-      card.style.setProperty('--card-mx', x);
-      card.style.setProperty('--card-my', y);
-    }, { passive: true });
-  });
-})();
-
-// ---------- 3. Magnetic buttons ----------
-// Buttons subtly pull toward the cursor when nearby
-(function magneticButtons() {
-  const btns = document.querySelectorAll('.btn');
-  const STRENGTH = 0.12; // 0 = no pull, 1 = full pull to cursor
-
-  btns.forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const r    = btn.getBoundingClientRect();
-      const cx   = r.left + r.width  / 2;
-      const cy   = r.top  + r.height / 2;
-      const MAX  = 6; // never move more than 6px
-      const dx   = Math.max(-MAX, Math.min(MAX, (e.clientX - cx) * STRENGTH));
-      const dy   = Math.max(-MAX, Math.min(MAX, (e.clientY - cy) * STRENGTH));
-      btn.style.transform = `translate(${dx}px, ${dy}px)`;
-    }, { passive: true });
-
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
-      btn.style.transition = 'transform 0.4s cubic-bezier(0.16,1,0.3,1)';
-      setTimeout(() => { btn.style.transition = ''; }, 400);
-    });
-  });
-})();
+// Card glow and magnetic buttons removed — caused mousemove repaints on every frame.
 
