@@ -1094,6 +1094,21 @@ h3 { font-size: 1.2rem; }
   body { padding-bottom: 80px; }
 }
 
+/* ---------- ICE share graphics ---------- */
+.ice-graphics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ice-graphics-grid img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+}
+@media (max-width: 768px) {
+  .ice-graphics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ---------- FAQ ---------- */
 #faq h2 { text-align: center; margin-bottom: 40px; }
 .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
