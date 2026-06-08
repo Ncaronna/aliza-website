@@ -10,6 +10,7 @@
  *   images/gallery/linework/  → Fine line & botanical
  *   images/gallery/blackwork/ → Black work / bold black tattoos
  *   images/gallery/coverups/  → Cover-up tattoos
+ *   images/gallery/freehand/  → Free hand tattoos
  *   images/gallery/script/    → Lettering & script
  *   images/gallery/flash/     → Flash designs
  *
@@ -31,6 +32,7 @@ const CATEGORIES = {
   linework:  { label: 'Line Work',  alt: 'Fine line tattoo by Aliza Nadine Phoenix AZ' },
   blackwork: { label: 'Black Work', alt: 'Black work tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
   coverups:  { label: 'Cover Ups',  alt: 'Cover up tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
+  freehand:  { label: 'Free Hand',  alt: 'Free hand tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
   script:    { label: 'Script',     alt: 'Custom script lettering tattoo by Aliza Nadine Phoenix' },
   flash:     { label: 'Flash',      alt: 'Flash tattoo design by Aliza Nadine at Jacob J Ink Phoenix' },
 };
