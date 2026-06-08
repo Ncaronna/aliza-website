@@ -8,6 +8,8 @@
  * Folders:
  *   images/gallery/realism/   → Black & grey realism work
  *   images/gallery/linework/  → Fine line & botanical
+ *   images/gallery/blackwork/ → Black work / bold black tattoos
+ *   images/gallery/coverups/  → Cover-up tattoos
  *   images/gallery/script/    → Lettering & script
  *   images/gallery/flash/     → Flash designs
  *
@@ -25,10 +27,12 @@ const IMAGE_EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
 
 // Category config — display name + SEO alt text template
 const CATEGORIES = {
-  realism:  { label: 'Realism',   alt: 'Black and grey realism tattoo by Aliza Nadine Phoenix AZ' },
-  linework: { label: 'Line Work', alt: 'Fine line tattoo by Aliza Nadine Phoenix AZ' },
-  script:   { label: 'Script',    alt: 'Custom script lettering tattoo by Aliza Nadine Phoenix' },
-  flash:    { label: 'Flash',     alt: 'Flash tattoo design by Aliza Nadine at Jacob J Ink Phoenix' },
+  realism:   { label: 'Realism',    alt: 'Black and grey realism tattoo by Aliza Nadine Phoenix AZ' },
+  linework:  { label: 'Line Work',  alt: 'Fine line tattoo by Aliza Nadine Phoenix AZ' },
+  blackwork: { label: 'Black Work', alt: 'Black work tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
+  coverups:  { label: 'Cover Ups',  alt: 'Cover up tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
+  script:    { label: 'Script',     alt: 'Custom script lettering tattoo by Aliza Nadine Phoenix' },
+  flash:     { label: 'Flash',      alt: 'Flash tattoo design by Aliza Nadine at Jacob J Ink Phoenix' },
 };
 
 // Scan each category folder
