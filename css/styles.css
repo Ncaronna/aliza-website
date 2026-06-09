@@ -207,29 +207,141 @@ h3 { font-size: 1.2rem; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
+  /* Above the sticky CTA bar (300) so the open menu covers it; below lightbox (500) */
+  .nav { z-index: 400; }
+
+  /* backdrop-filter on the scrolled header hijacks the fixed menu panel's
+     containing block (collapses it to header height) and is flaky on phones —
+     use a solid background on mobile instead */
+  .nav.scrolled {
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .nav-toggle {
     display: flex;
     position: relative;
     z-index: 101; /* keep hamburger/X tappable above the open menu */
   }
+
+  /* Full-screen premium menu panel */
   .nav-links {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;        /* full screen — no transparent strip */
-    background: #0a0a0a;                          /* solid; no backdrop-filter (breaks on mobile) */
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;  /* fallback */
+    height: 100dvh; /* tracks mobile URL-bar collapse */
+    /* solid base + soft red glow rising from the bottom (no backdrop-filter — breaks on mobile) */
+    background:
+      radial-gradient(ellipse 130% 55% at 50% 115%, rgba(179,18,23,0.18), transparent 65%),
+      #0a0a0a;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 32px;
-    padding: calc(var(--nav-h) + 24px) 24px 48px; /* clear the logo + hamburger */
-    overflow-y: auto;                             /* scroll instead of clipping on short screens */
+    justify-content: flex-start;
+    align-items: stretch;
+    text-align: left;
+    gap: 0;
+    padding: calc(var(--nav-h) + 40px) 30px calc(36px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overflow-x: hidden;
     transform: translateX(100%);
-    transition: transform 0.35s ease;
-    z-index: 95;                                  /* below nav (100) so logo + X stay on top */
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 95; /* below nav (100) so logo + X stay on top */
+    counter-reset: navitem;
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-links a { font-size: 1.3rem; }
-  .nav-cta { display: none; }
+
+  /* "Menu" eyebrow */
+  .nav-links::before {
+    content: 'Menu';
+    display: block;
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--red-light);
+    margin-bottom: 10px;
+  }
+
+  /* Giant watermark monogram */
+  .nav-links::after {
+    content: 'AN';
+    position: absolute;
+    right: -24px;
+    bottom: -50px;
+    font-size: 15rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Menu items — editorial list with hairline dividers, staggered entrance */
+  .nav-links li {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-links.open li { opacity: 1; transform: none; }
+  .nav-links.open li:nth-child(1) { transition-delay: 0.10s; }
+  .nav-links.open li:nth-child(2) { transition-delay: 0.18s; }
+  .nav-links.open li:nth-child(3) { transition-delay: 0.26s; }
+  .nav-links.open li:nth-child(4) { transition-delay: 0.34s; }
+
+  .nav-links li:not(.nav-cta) a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    padding: 20px 0;
+  }
+  /* red index numbers 01 / 02 / 03 */
+  .nav-links li:not(.nav-cta) a::before {
+    counter-increment: navitem;
+    content: counter(navitem, decimal-leading-zero);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--red-light);
+  }
+  .nav-links li:not(.nav-cta) a:active { color: var(--red-light); }
+
+  /* Book Now — full-width CTA pinned to the bottom */
+  .nav-cta {
+    display: block;
+    margin: auto 0 0; /* pushes to the bottom of the panel */
+    padding-top: 36px;
+  }
+  .nav-links li.nav-cta { border-bottom: none; }
+  .nav-cta .btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 17px 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.14em;
+    box-shadow: 0 12px 40px rgba(179, 18, 23, 0.35);
+  }
+  /* studio sign-off under the button */
+  .nav-cta::after {
+    content: 'Phoenix, AZ · By appointment only';
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 }
 
 /* ---------- Hero ---------- */
@@ -879,7 +991,7 @@ h3 { font-size: 1.2rem; }
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.93);
-  z-index: 200;
+  z-index: 500; /* above mobile nav (400) and sticky CTA bar (300) */
   display: flex;
   align-items: center;
   justify-content: center;
