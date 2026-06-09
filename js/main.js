@@ -231,3 +231,21 @@ if (form) {
 
 // Card glow and magnetic buttons removed — caused mousemove repaints on every frame.
 
+// ---------- Parking guide modal ----------
+(function parkingModal() {
+  const modal   = document.getElementById('parkingModal');
+  const openBtn = document.getElementById('openParking');
+  const closeBtn = document.getElementById('closeParking');
+  if (!modal || !openBtn) return;
+
+  function open()  { modal.classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function close() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  // Click backdrop to close
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
+  // Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+

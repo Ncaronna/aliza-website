@@ -1096,54 +1096,154 @@ h3 { font-size: 1.2rem; }
 
 /* ---------- New Location Section ---------- */
 .new-location-section {
-  padding: 70px 0;
-  background: linear-gradient(135deg, rgba(179,18,23,0.08) 0%, transparent 60%), var(--bg2);
-  border-top: 1px solid rgba(179,18,23,0.25);
-  border-bottom: 1px solid rgba(179,18,23,0.15);
+  padding: 80px 0;
+  background: var(--bg2);
+  border-top: 1px solid rgba(179,18,23,0.3);
+  border-bottom: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
 }
-.new-location-eyebrow {
-  color: var(--red-light) !important;
-  letter-spacing: 0.12em;
+.new-location-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse 70% 60% at 0% 50%, rgba(179,18,23,0.07), transparent 70%);
+  pointer-events: none;
+}
+.new-location-badge {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.new-location-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(179,18,23,0.12);
+  border: 1px solid rgba(179,18,23,0.35);
+  color: var(--red-light);
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 .new-location-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 64px;
   align-items: center;
 }
 .new-location-text h2 { margin-bottom: 16px; }
-.new-location-text p  { color: var(--muted); margin-bottom: 20px; line-height: 1.7; }
+.new-location-text p  { color: var(--muted); line-height: 1.75; margin-bottom: 28px; font-size: 0.97rem; }
 .new-location-address {
-  font-style: normal;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   background: var(--glass);
   border: 1px solid rgba(179,18,23,0.2);
   border-radius: var(--radius);
-  padding: 16px 20px;
-  display: inline-block;
+  padding: 18px 22px;
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 28px;
 }
+.address-icon { font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+.new-location-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Parking image */
 .new-location-map { position: relative; }
 .parking-label {
-  font-size: 0.72rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
-  margin-bottom: 10px;
 }
+.parking-hint { color: var(--red-light); font-weight: 600; }
+.parking-img-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.parking-img-btn:hover .parking-zoom-icon { opacity: 1; }
+.parking-img-btn:hover .parking-img { filter: brightness(0.75); }
 .parking-img {
   width: 100%;
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transition: filter 0.2s;
+  display: block;
 }
+.parking-zoom-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+/* Parking modal */
+.parking-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.92);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: zoom-out;
+}
+.parking-modal.open { display: flex; }
+.parking-modal-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+  cursor: default;
+}
+.parking-modal-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 1.2rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 1001;
+}
+.parking-modal-close:hover { background: rgba(179,18,23,0.6); }
+
 @media (max-width: 768px) {
-  .new-location-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
+  .new-location-inner { grid-template-columns: 1fr; gap: 40px; }
+  .new-location-actions .btn { flex: 1; justify-content: center; }
 }
 
 /* ---------- ICE share graphics ---------- */

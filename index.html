@@ -225,40 +225,62 @@
     <!-- ===== NEW LOCATION ===== -->
     <section class="new-location-section" aria-label="New studio location">
       <div class="container">
+
+        <div class="new-location-badge fade-in">
+          <span class="new-location-pill">📍 New Location</span>
+        </div>
+
         <div class="new-location-inner fade-in">
 
           <div class="new-location-text">
-            <span class="eyebrow new-location-eyebrow">📍 We Moved!</span>
-            <h2>New Studio Location</h2>
+            <h2>We Have a <span class="grad-text-red">New Studio</span></h2>
             <p>
-              Aliza is now tattooing out of our new space in central Phoenix.
-              More room, same energy, even better experience.
+              Aliza is now tattooing out of a brand new space in central Phoenix —
+              more room, same energy, even better experience.
             </p>
-            <address class="new-location-address">
-              <strong>Jacob J Ink</strong><br />
-              3508 N. 7th St., Suite 125<br />
-              Phoenix, AZ 85014
-            </address>
-            <a href="https://maps.google.com/?q=3508+N+7th+St+%23125+Phoenix+AZ+85014"
-               target="_blank" rel="noopener noreferrer"
-               class="btn btn-primary" style="margin-top:24px;">
-              Get Directions ↗
-            </a>
+            <div class="new-location-address">
+              <div class="address-icon">📍</div>
+              <div>
+                <strong>Jacob J Ink</strong><br />
+                3508 N. 7th St., Suite 125<br />
+                Phoenix, AZ 85014
+              </div>
+            </div>
+            <div class="new-location-actions">
+              <a href="https://maps.google.com/?q=3508+N+7th+St+%23125+Phoenix+AZ+85014"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn btn-primary">
+                Get Directions ↗
+              </a>
+              <a href="#booking" class="btn btn-outline">Book Now</a>
+            </div>
           </div>
 
           <div class="new-location-map fade-in">
-            <div class="parking-label">Parking Guide</div>
-            <img
-              src="images/parking-guide.jpg"
-              alt="Parking guide for Jacob J Ink at 3508 N 7th St Phoenix AZ"
-              class="parking-img"
-              loading="lazy"
-            />
+            <div class="parking-label">
+              <span>Parking Guide</span>
+              <span class="parking-hint">tap to enlarge</span>
+            </div>
+            <button class="parking-img-btn" id="openParking" aria-label="View parking guide full size">
+              <img
+                src="images/parking-guide.jpg"
+                alt="Parking guide for Jacob J Ink at 3508 N 7th St Phoenix AZ"
+                class="parking-img"
+                loading="lazy"
+              />
+              <div class="parking-zoom-icon">⛶</div>
+            </button>
           </div>
 
         </div>
       </div>
     </section>
+
+    <!-- Parking Guide Modal -->
+    <div id="parkingModal" class="parking-modal" role="dialog" aria-modal="true" aria-label="Parking guide enlarged">
+      <button class="parking-modal-close" id="closeParking" aria-label="Close">✕</button>
+      <img src="images/parking-guide.jpg" alt="Parking guide for Jacob J Ink Phoenix AZ" class="parking-modal-img" />
+    </div>
 
     <!-- ===== FEATURED WORK ===== -->
     <section class="section" aria-label="Featured work">
