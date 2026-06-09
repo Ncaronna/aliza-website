@@ -15,13 +15,21 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache CSS/JS with versioning
+# CSS/JS: always revalidate so deploys take effect immediately.
+# Netlify serves ETags, so unchanged files return a fast 304 (no re-download),
+# but updated styles/scripts are picked up on the very next visit.
 [[headers]]
   for = "/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# HTML should never be cached stale either
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
