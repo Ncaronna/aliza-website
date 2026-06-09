@@ -8,26 +8,26 @@
   <title>Aliza Nadine | Black &amp; Grey Realism Tattoo Artist in Phoenix, AZ</title>
   <meta name="description" content="Aliza Nadine is a Phoenix-based tattoo artist specializing in custom black &amp; grey realism and fine line tattoos. Book your session at 3508 N. 7th St., Phoenix, AZ." />
   <meta name="keywords" content="tattoo artist Phoenix AZ, black grey realism tattoo, fine line tattoo Phoenix, custom tattoo Phoenix, Aliza Nadine tattoos" />
-  <link rel="canonical" href="https://www.alizanadine.com/" />
+  <link rel="canonical" href="https://alizanadine.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://www.alizanadine.com/" />
+  <meta property="og:url"         content="https://alizanadine.com/" />
   <meta property="og:title"       content="Aliza Nadine | Black &amp; Grey Realism Tattoos — Phoenix, AZ" />
   <meta property="og:description" content="Custom black &amp; grey realism and fine line tattoos in Phoenix, AZ. Book your session today." />
-  <meta property="og:image"       content="https://www.alizanadine.com/images/og-cover.jpg" />
+  <meta property="og:image"       content="https://alizanadine.com/images/og-cover.jpg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Aliza Nadine | Tattoo Artist Phoenix AZ" />
   <meta name="twitter:description" content="Custom black &amp; grey realism and fine line tattoos in Phoenix, AZ." />
-  <meta name="twitter:image"       content="https://www.alizanadine.com/images/og-cover.jpg" />
+  <meta name="twitter:image"       content="https://alizanadine.com/images/og-cover.jpg" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/favicon.png" />
 
   <!-- Preload hero image — improves LCP score -->
-  <link rel="preload" as="image" href="images/hero-portrait.jpg" />
+  <link rel="preload" as="image" href="images/hero-portrait.webp" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,8 +43,8 @@
     "@context": "https://schema.org",
     "@type": "TattooParlor",
     "name": "Jacob J Ink",
-    "image": "https://www.alizanadine.com/images/og-cover.jpg",
-    "url": "https://www.alizanadine.com",
+    "image": "https://alizanadine.com/images/og-cover.jpg",
+    "url": "https://alizanadine.com",
     "telephone": "+16029357020",
     "priceRange": "$$",
     "description": "Phoenix-based tattoo artist specializing in custom black & grey realism and fine line tattoos.",
@@ -79,7 +79,7 @@
       "ratingValue": "5",
       "reviewCount": "100"
     },
-    "sameAs": []
+    "sameAs": ["https://www.instagram.com/ink.by.aliza/"]
   }
   </script>
 
@@ -133,12 +133,15 @@
   }
   </script>
 
-  <!-- Netlify Forms detection -->
+  <!-- Netlify Forms detection (must list every field, incl. the file upload) -->
   <form name="contact" netlify netlify-honeypot="bot-field" hidden>
     <input type="text"  name="name" />
     <input type="email" name="email" />
     <input type="tel"   name="phone" />
+    <input type="text"  name="size" />
+    <input type="text"  name="placement" />
     <textarea           name="message"></textarea>
+    <input type="file"  name="reference" />
   </form>
 </head>
 <body>
@@ -153,7 +156,7 @@
         <ul class="nav-links">
           <li><a href="/"                 class="active">Home</a></li>
           <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="ice-encounters.html">ICE Encounters</a></li>
+          <li><a href="https://www.instagram.com/ink.by.aliza/" target="_blank" rel="noopener">Instagram</a></li>
           <li class="nav-cta"><a href="#booking" class="btn btn-primary">Book Now</a></li>
         </ul>
       </nav>
@@ -202,20 +205,13 @@
           </div>
 
           <div class="hero-img-wrap">
-            <!-- Replace src with your actual artist/portfolio photo -->
             <img
-              src="images/hero-portrait.jpg"
-              alt="Aliza Nadine — Phoenix tattoo artist"
+              src="images/hero-portrait.webp"
+              alt="Aliza Nadine — Phoenix tattoo artist at Jacob J Ink"
               class="hero-img"
               width="600" height="750"
               fetchpriority="high"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
-            <div class="hero-img-placeholder" style="display:none;">
-              <span style="font-size:2rem;">🖼</span>
-              <span>Add hero image here</span>
-              <span style="font-size:0.75rem; opacity:0.5;">images/hero-portrait.jpg</span>
-            </div>
           </div>
 
         </div>
@@ -263,7 +259,7 @@
             </div>
             <button class="parking-img-btn" id="openParking" aria-label="View parking guide full size">
               <img
-                src="images/parking-guide.jpg"
+                src="images/parking-guide.webp"
                 alt="Parking guide for Jacob J Ink at 3508 N 7th St Phoenix AZ"
                 class="parking-img"
                 loading="lazy"
@@ -279,7 +275,7 @@
     <!-- Parking Guide Modal -->
     <div id="parkingModal" class="parking-modal" role="dialog" aria-modal="true" aria-label="Parking guide enlarged">
       <button class="parking-modal-close" id="closeParking" aria-label="Close">✕</button>
-      <img src="images/parking-guide.jpg" alt="Parking guide for Jacob J Ink Phoenix AZ" class="parking-modal-img" />
+      <img src="images/parking-guide.webp" alt="Parking guide for Jacob J Ink Phoenix AZ" class="parking-modal-img" />
     </div>
 
     <!-- ===== FEATURED WORK ===== -->
@@ -295,43 +291,43 @@
 
         <!-- work-grid-start -->
         <div class="work-grid">
-          <div class="work-card fade-in" data-src="images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az.jpg" data-alt="Praying Hands tattoo — Black & Grey by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az.jpg" alt="Praying Hands tattoo — Black & Grey by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az.webp" data-alt="Praying Hands tattoo — Black & Grey by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az.webp" srcset="images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az-sm.webp 760w, images/gallery/realism/realism-praying-hands-behind-ear-micro-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Praying Hands tattoo — Black & Grey by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Praying Hands</h3>
               <p>Black & Grey</p>
             </div>
           </div>
-          <div class="work-card fade-in" data-src="images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az.jpg" data-alt="Floral Botanical Wildflowers tattoo — Fine Line by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az.jpg" alt="Floral Botanical Wildflowers tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az.webp" data-alt="Floral Botanical Wildflowers tattoo — Fine Line by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az.webp" srcset="images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az-sm.webp 760w, images/gallery/linework/linework-floral-botanical-wildflowers-forearm-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Floral Botanical Wildflowers tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Floral Botanical Wildflowers</h3>
               <p>Fine Line</p>
             </div>
           </div>
-          <div class="work-card fade-in" data-src="images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az.jpg" data-alt="Cross Roman Numeral tattoo — Black Work by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az.jpg" alt="Cross Roman Numeral tattoo — Black Work by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az.webp" data-alt="Cross Roman Numeral tattoo — Black Work by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az.webp" srcset="images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az-sm.webp 760w, images/gallery/blackwork/blackwork-cross-roman-numeral-forearm-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Cross Roman Numeral tattoo — Black Work by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Cross Roman Numeral</h3>
               <p>Black Work</p>
             </div>
           </div>
-          <div class="work-card fade-in" data-src="images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az.jpg" data-alt="Tribal tattoo — Black Work by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az.jpg" alt="Tribal tattoo — Black Work by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az.webp" data-alt="Tribal tattoo — Black Work by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az.webp" srcset="images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az-sm.webp 760w, images/gallery/blackwork/blackwork-tribal-sleeve-upper-arm-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Tribal tattoo — Black Work by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Tribal</h3>
               <p>Black Work</p>
             </div>
           </div>
-          <div class="work-card fade-in" data-src="images/gallery/linework/linework-snake-floral-lily-back-phoenix-az.jpg" data-alt="Snake Floral Lily tattoo — Fine Line by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/linework/linework-snake-floral-lily-back-phoenix-az.jpg" alt="Snake Floral Lily tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/linework/linework-snake-floral-lily-back-phoenix-az.webp" data-alt="Snake Floral Lily tattoo — Fine Line by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/linework/linework-snake-floral-lily-back-phoenix-az.webp" srcset="images/gallery/linework/linework-snake-floral-lily-back-phoenix-az-sm.webp 760w, images/gallery/linework/linework-snake-floral-lily-back-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Snake Floral Lily tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Snake Floral Lily</h3>
               <p>Fine Line</p>
             </div>
           </div>
-          <div class="work-card fade-in" data-src="images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az.jpg" data-alt="Frog Jack Playing Card tattoo — Fine Line by Aliza Nadine Phoenix AZ">
-            <img src="images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az.jpg" alt="Frog Jack Playing Card tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
+          <div class="work-card fade-in" data-src="images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az.webp" data-alt="Frog Jack Playing Card tattoo — Fine Line by Aliza Nadine Phoenix AZ">
+            <img src="images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az.webp" srcset="images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az-sm.webp 760w, images/gallery/linework/linework-frog-jack-playing-card-arm-phoenix-az.webp 1400w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw" alt="Frog Jack Playing Card tattoo — Fine Line by Aliza Nadine Phoenix AZ" loading="lazy" />
             <div class="work-overlay">
               <h3>Frog Jack Playing Card</h3>
               <p>Fine Line</p>
@@ -353,14 +349,12 @@
 
           <div class="about-img-wrap fade-in">
             <img
-              src="images/about-photo.jpg"
+              src="images/about-photo.webp"
               alt="Aliza Nadine — tattoo artist at her Phoenix studio"
               class="about-img"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              width="600" height="700"
+              loading="lazy"
             />
-            <div class="about-img-placeholder" style="display:none;">
-              <span>Artist photo<br/>images/about-photo.jpg</span>
-            </div>
           </div>
 
           <div class="about-text fade-in">
@@ -399,7 +393,10 @@
                 <span class="specialty-card-arrow">See examples →</span>
               </a>
             </div>
-            <a href="#booking" class="btn btn-primary">Book Your Session</a>
+            <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+              <a href="#booking" class="btn btn-primary">Book Your Session</a>
+              <a href="https://www.instagram.com/ink.by.aliza/" target="_blank" rel="noopener" class="btn btn-outline">Follow on Instagram ↗</a>
+            </div>
           </div>
 
         </div>
@@ -489,8 +486,8 @@
         </div>
 
         <div class="text-center fade-in" style="margin-top:40px;">
-          <a href="https://www.google.com/search?q=Aliza+Nadine+Tattoos+Phoenix" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-            Read All Reviews on Google ↗
+          <a href="https://www.google.com/maps/reviews/@33.4885673,-112.0654633,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25vd1JVcDZUMjQxUm1GbWEyWTRRMDQwUVU5S1EwRRAB!2m1!1s0x0:0x8f549094171e906b?hl=en-US" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            Read Reviews on Google ↗
           </a>
         </div>
       </div>
@@ -544,9 +541,9 @@
             <h3>Send a Message</h3>
             <p>Describe your idea and I'll get back to you soon.</p>
 
-            <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
               <input type="hidden" name="form-name" value="contact" />
-              <p style="display:none;"><label>Don't fill this: <input name="bot-field" /></label></p>
+              <p class="hidden-field" aria-hidden="true"><label>Leave blank<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
 
               <div class="form-row">
                 <div class="form-group">
@@ -562,19 +559,33 @@
                 <label class="form-label" for="email">Email</label>
                 <input class="form-input" type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email" />
               </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="size">Approx. size</label>
+                  <input class="form-input" type="text" id="size" name="size" placeholder="e.g. 4 in, palm-sized" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="placement">Placement</label>
+                  <input class="form-input" type="text" id="placement" name="placement" placeholder="e.g. forearm, back" autocomplete="off" />
+                </div>
+              </div>
               <div class="form-group">
                 <label class="form-label" for="message">Tell me about your idea</label>
-                <textarea class="form-textarea" id="message" name="message" placeholder="Describe the tattoo you have in mind — placement, size, style, references…" required></textarea>
+                <textarea class="form-textarea" id="message" name="message" placeholder="Describe the tattoo you have in mind — style, references, any details…" required></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reference">Reference photo <span style="color:var(--muted); font-weight:400;">(optional — great for cover-ups &amp; reworks)</span></label>
+                <input class="form-input form-file" type="file" id="reference" name="reference" accept="image/*" />
               </div>
 
+              <p class="form-note">💳 A deposit is required to secure your appointment date. It goes toward the final cost of your tattoo — I'll share the details once we lock in your design.</p>
+
               <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
-                Send Message
+                Request Booking
               </button>
             </form>
 
-            <div id="formSuccess" class="form-success">
-              ✅ Message sent! I'll get back to you within 24–48 hours.
-            </div>
+            <div id="formSuccess" class="form-success" role="status" aria-live="polite"></div>
           </div>
 
         </div>
@@ -685,6 +696,7 @@
           <h4>Contact</h4>
           <ul>
             <li><a href="tel:+16029357020">602.935.7020</a></li>
+            <li><a href="https://www.instagram.com/ink.by.aliza/" target="_blank" rel="noopener">Instagram @ink.by.aliza</a></li>
             <li><a href="https://maps.app.goo.gl/RygCkKoCQgCrkigaA" target="_blank" rel="noopener">3508 N. 7th St., #125</a></li>
             <li><a href="https://maps.app.goo.gl/RygCkKoCQgCrkigaA" target="_blank" rel="noopener">Phoenix, AZ 85014</a></li>
           </ul>

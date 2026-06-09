@@ -2,7 +2,7 @@
 /**
  * ALIZA NADINE — Auto Gallery + Homepage Builder
  * ------------------------------------------------
- * Drop photos into the right folder, then run:
+ * Drop photos into the right category folder, then run:
  *   node add-photos.js
  *
  * Folders:
@@ -14,20 +14,38 @@
  *   images/gallery/script/    → Lettering & script
  *   images/gallery/flash/     → Flash designs
  *
- * This script:
- *   1. Rewrites the gallery grid in gallery.html
- *   2. Rewrites the 6 featured work cards on index.html
- *      with the 6 most recently added photos
+ * What this script does, for every source photo (.jpg/.jpeg/.png):
+ *   1. Generates two optimized WebP versions next to it:
+ *        <name>.webp     → full size (max 1400px wide)  — used in lightbox
+ *        <name>-sm.webp  → mobile size (max 760px wide) — used on phones
+ *      (Skips files that are already up to date, so re-runs are fast.)
+ *   2. Rewrites the gallery grid in gallery.html (between markers).
+ *   3. Rewrites the 6 featured work cards on index.html with the
+ *      6 most recently added photos (between markers).
+ *
+ * The original JPG/PNG is kept as the quality source (and so any
+ * previously-indexed image URLs keep working). Only the WebP is served.
+ *
+ * Requires: cwebp  (install once with: brew install webp)
  */
 
 const fs   = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
-const GALLERY_HTML  = path.join(__dirname, 'gallery.html');
-const INDEX_HTML    = path.join(__dirname, 'index.html');
-const GALLERY_DIR   = path.join(__dirname, 'images', 'gallery');
+const GALLERY_HTML = path.join(__dirname, 'gallery.html');
+const INDEX_HTML   = path.join(__dirname, 'index.html');
+const GALLERY_DIR  = path.join(__dirname, 'images', 'gallery');
 
-const IMAGE_EXTS = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
+const SOURCE_EXTS = ['.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG'];
+
+// WebP encode settings
+const FULL_WIDTH = 1400;  // lightbox / large displays
+const SM_WIDTH   = 760;   // phones
+const QUALITY    = 80;
+
+// Responsive sizing hint (grid shows ~3 cols desktop, 2 tablet, 1 phone)
+const SIZES = '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw';
 
 // Category config
 const CATEGORIES = {
@@ -40,10 +58,8 @@ const CATEGORIES = {
   flash:     { label: 'Flash',      style: 'Flash',         alt: 'Flash tattoo design by Aliza Nadine at Jacob J Ink Phoenix' },
 };
 
-// Words to strip when generating a human title from filename
-const STRIP_SUFFIXES = [
-  'phoenix-az', 'phoenix-arizona', 'phoenix', 'arizona', 'az',
-];
+// ─── Filename → readable title ──────────────────────────────────────────────
+const STRIP_SUFFIXES = ['phoenix-az', 'phoenix-arizona', 'phoenix', 'arizona', 'az'];
 const STRIP_PLACEMENTS = [
   'forearm', 'upper-arm', 'upper', 'lower', 'arm', 'wrist', 'hand', 'finger',
   'torso', 'stomach', 'rib', 'ribs', 'back', 'chest', 'shoulder',
@@ -51,107 +67,99 @@ const STRIP_PLACEMENTS = [
   'sleeve', 'micro', 'v2', 'v3',
 ];
 
-// Generate a readable title from a filename like:
-//   realism-lion-leaves-forearm-phoenix-az.jpg  →  "Lion Leaves"
-function titleFromFilename(file, category) {
-  let name = path.basename(file, path.extname(file));
-
-  // Remove category prefix
-  const prefix = category + '-';
-  if (name.startsWith(prefix)) name = name.slice(prefix.length);
-
-  // Strip location + placement words from the end, trying 2-word combos before singles
-  let parts = name.split('-');
+function titleFromSlug(slug, category) {
+  let parts = slug.split('-');
+  const prefix = category;
+  if (parts[0] === prefix) parts.shift();           // drop category prefix
   let changed = true;
   while (changed && parts.length > 1) {
     changed = false;
     const last  = parts[parts.length - 1];
     const last2 = parts.length >= 2 ? parts.slice(-2).join('-') : '';
-    if (STRIP_SUFFIXES.includes(last)) {
-      parts.pop(); changed = true;
-    } else if (last2 && STRIP_PLACEMENTS.includes(last2)) {
-      parts.pop(); parts.pop(); changed = true;
-    } else if (STRIP_PLACEMENTS.includes(last)) {
-      parts.pop(); changed = true;
-    }
+    if (STRIP_SUFFIXES.includes(last)) { parts.pop(); changed = true; }
+    else if (last2 && STRIP_PLACEMENTS.includes(last2)) { parts.pop(); parts.pop(); changed = true; }
+    else if (STRIP_PLACEMENTS.includes(last)) { parts.pop(); changed = true; }
   }
-
-  // Title-case remaining words
-  return parts
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
+  return parts.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
-// Scan each category folder, return images with mtime
+// ─── WebP generation ────────────────────────────────────────────────────────
+let converted = 0;
+
+function makeWebp(srcPath, outPath, width) {
+  // Skip if output exists and is newer than the source
+  if (fs.existsSync(outPath) && fs.statSync(outPath).mtime >= fs.statSync(srcPath).mtime) return false;
+  execFileSync('cwebp', ['-quiet', '-q', String(QUALITY), '-resize', String(width), '0', srcPath, '-o', outPath]);
+  // Preserve the source's modified time so "newest photos" ordering stays correct
+  const srcMtime = fs.statSync(srcPath).mtime;
+  fs.utimesSync(outPath, srcMtime, srcMtime);
+  converted++;
+  return true;
+}
+
+// ─── Scan a category folder → list of {slug, category, full, sm, mtime} ──────
 function getImages(category) {
   const dir = path.join(GALLERY_DIR, category);
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir)
-    .filter(f => IMAGE_EXTS.includes(path.extname(f)) && !f.startsWith('.'))
-    .map(f => {
-      const fullPath = path.join(dir, f);
-      const mtime = fs.statSync(fullPath).mtime;
-      return { file: f, category, mtime };
-    });
+
+  const sources = fs.readdirSync(dir)
+    .filter(f => SOURCE_EXTS.includes(path.extname(f)) && !f.startsWith('.'));
+
+  return sources.map(file => {
+    const slug    = path.basename(file, path.extname(file));
+    const srcPath = path.join(dir, file);
+    const fullRel = `images/gallery/${category}/${slug}.webp`;
+    const smRel   = `images/gallery/${category}/${slug}-sm.webp`;
+    makeWebp(srcPath, path.join(dir, `${slug}.webp`),    FULL_WIDTH);
+    makeWebp(srcPath, path.join(dir, `${slug}-sm.webp`), SM_WIDTH);
+    return { slug, category, full: fullRel, sm: smRel, mtime: fs.statSync(srcPath).mtime };
+  });
 }
 
-// Collect all images across all categories
 const allImages = Object.keys(CATEGORIES).flatMap(getImages);
 
 if (allImages.length === 0) {
-  console.log('⚠️  No images found in category folders. Add photos and try again.');
+  console.log('⚠️  No source photos found in category folders. Add photos and try again.');
   process.exit(0);
 }
 
-// ─── 1. Rebuild gallery.html ───────────────────────────────────────────────
+// ─── Marker-based replace helper (robust — no fragile index math) ────────────
+function replaceBetween(html, startMarker, endMarker, replacement, file) {
+  const s = html.indexOf(startMarker);
+  const e = html.indexOf(endMarker);
+  if (s === -1 || e === -1) {
+    console.error(`❌  Could not find markers ${startMarker} / ${endMarker} in ${file}.`);
+    process.exit(1);
+  }
+  return html.slice(0, s) + startMarker + '\n' + replacement + '\n        ' + endMarker + html.slice(e + endMarker.length);
+}
 
-function galleryItemHTML(img) {
-  const { file, category } = img;
-  const src = `images/gallery/${category}/${file}`;
-  const alt = CATEGORIES[category].alt;
-  return `
-          <div class="gallery-item" data-category="${category}">
-            <img src="${src}" alt="${alt}" loading="lazy" />
+// ─── 1. Gallery grid ─────────────────────────────────────────────────────────
+function galleryItem(img) {
+  const alt = CATEGORIES[img.category].alt;
+  return `          <div class="gallery-item" data-category="${img.category}">
+            <img src="${img.full}" srcset="${img.sm} 760w, ${img.full} 1400w" sizes="${SIZES}" alt="${alt}" loading="lazy" />
           </div>`;
 }
 
-const galleryGridHTML =
+const galleryGrid =
   `        <div class="gallery-grid">\n` +
-  allImages
-    .slice()
-    .sort((a, b) => a.file.localeCompare(b.file)) // stable alphabetical for gallery
-    .map(galleryItemHTML).join('\n') + '\n\n' +
-  `        </div>`;
+  allImages.slice().sort((a, b) => a.slug.localeCompare(b.slug)).map(galleryItem).join('\n\n') +
+  `\n        </div>`;
 
 let galleryHtml = fs.readFileSync(GALLERY_HTML, 'utf8');
-const GALLERY_START = '        <div class="gallery-grid">';
-const gStart = galleryHtml.indexOf(GALLERY_START);
-if (gStart === -1) {
-  console.error('❌  Could not find gallery grid in gallery.html.');
-  process.exit(1);
-}
-// Find the closing </div> of the gallery grid
-const lastGalleryItem = galleryHtml.lastIndexOf('</div>', galleryHtml.indexOf('<!-- CTA'));
-const gEnd = galleryHtml.indexOf('</div>', lastGalleryItem + 6) + 6;
-galleryHtml = galleryHtml.slice(0, gStart) + galleryGridHTML + galleryHtml.slice(gEnd);
+galleryHtml = replaceBetween(galleryHtml, '<!-- gallery-grid-start -->', '<!-- gallery-grid-end -->', galleryGrid, 'gallery.html');
 fs.writeFileSync(GALLERY_HTML, galleryHtml, 'utf8');
 
-// ─── 2. Rebuild index.html work grid with the 6 newest images ──────────────
+// ─── 2. Homepage featured work (6 newest) ────────────────────────────────────
+const newest6 = allImages.slice().sort((a, b) => b.mtime - a.mtime).slice(0, 6);
 
-// Sort ALL images by mtime descending, take newest 6
-const newest6 = allImages
-  .slice()
-  .sort((a, b) => b.mtime - a.mtime)
-  .slice(0, 6);
-
-function workCardHTML(img) {
-  const { file, category } = img;
-  const src   = `images/gallery/${category}/${file}`;
-  const title = titleFromFilename(file, category);
-  const style = CATEGORIES[category].style;
+function workCard(img) {
+  const title = titleFromSlug(img.slug, img.category);
+  const style = CATEGORIES[img.category].style;
   const alt   = `${title} tattoo — ${style} by Aliza Nadine Phoenix AZ`;
-  return `          <div class="work-card fade-in" data-src="${src}" data-alt="${alt}">
-            <img src="${src}" alt="${alt}" loading="lazy" />
+  return `          <div class="work-card fade-in" data-src="${img.full}" data-alt="${alt}">
+            <img src="${img.full}" srcset="${img.sm} 760w, ${img.full} 1400w" sizes="${SIZES}" alt="${alt}" loading="lazy" />
             <div class="work-overlay">
               <h3>${title}</h3>
               <p>${style}</p>
@@ -159,39 +167,21 @@ function workCardHTML(img) {
           </div>`;
 }
 
-const workGridHTML =
-  `        <!-- work-grid-start -->\n` +
+const workGrid =
   `        <div class="work-grid">\n` +
-  newest6.map(workCardHTML).join('\n') + '\n' +
-  `        </div>\n` +
-  `        <!-- work-grid-end -->`;
+  newest6.map(workCard).join('\n') +
+  `\n        </div>`;
 
 let indexHtml = fs.readFileSync(INDEX_HTML, 'utf8');
-const WG_START = '        <!-- work-grid-start -->';
-const WG_END   = '        <!-- work-grid-end -->';
-const wgStart = indexHtml.indexOf(WG_START);
-const wgEnd   = indexHtml.indexOf(WG_END) + WG_END.length;
-
-if (wgStart === -1 || wgEnd === -1) {
-  console.error('❌  Could not find work-grid markers in index.html.');
-  process.exit(1);
-}
-
-indexHtml = indexHtml.slice(0, wgStart) + workGridHTML + indexHtml.slice(wgEnd);
+indexHtml = replaceBetween(indexHtml, '<!-- work-grid-start -->', '<!-- work-grid-end -->', workGrid, 'index.html');
 fs.writeFileSync(INDEX_HTML, indexHtml, 'utf8');
 
-// ─── Summary ───────────────────────────────────────────────────────────────
-
-console.log(`\n✅  Gallery updated with ${allImages.length} photos:\n`);
+// ─── Summary ──────────────────────────────────────────────────────────────────
+console.log(`\n✅  ${allImages.length} photos processed (${converted} WebP file${converted !== 1 ? 's' : ''} (re)generated):\n`);
 Object.keys(CATEGORIES).forEach(cat => {
   const count = allImages.filter(i => i.category === cat).length;
-  if (count) console.log(`   ${CATEGORIES[cat].label.padEnd(12)} ${count} photo${count !== 1 ? 's' : ''}`);
+  if (count) console.log(`   ${CATEGORIES[cat].label.padEnd(12)} ${count}`);
 });
-console.log(`\n✅  Homepage updated with 6 newest photos:`);
-newest6.forEach(img => {
-  console.log(`   • ${titleFromFilename(img.file, img.category)} (${CATEGORIES[img.category].style})`);
-});
-console.log('\nNext steps:');
-console.log('  git add .');
-console.log('  git commit -m "add photos"');
-console.log('  git push\n');
+console.log(`\n✅  Homepage featuring 6 newest:`);
+newest6.forEach(img => console.log(`   • ${titleFromSlug(img.slug, img.category)} (${CATEGORIES[img.category].style})`));
+console.log('\nNext: git add . && git commit -m "add photos" && git push\n');

@@ -177,20 +177,20 @@ if (form) {
     const data = new FormData(form);
 
     try {
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString()
-      });
+      // Multipart POST (no manual Content-Type) so the reference photo uploads too
+      const res = await fetch('/', { method: 'POST', body: data });
       if (res.ok) {
         form.style.display = 'none';
-        if (formSuccess) formSuccess.style.display = 'block';
+        if (formSuccess) {
+          formSuccess.textContent = "✅ Request sent! I'll get back to you within 24–48 hours.";
+          formSuccess.style.display = 'block';
+        }
       } else {
         throw new Error('Network error');
       }
     } catch {
       btn.disabled = false;
-      btn.textContent = 'Send Message';
+      btn.textContent = 'Request Booking';
       alert('Something went wrong. Please call or text instead: 602.935.7020');
     }
   });
