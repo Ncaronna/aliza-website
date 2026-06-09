@@ -164,35 +164,15 @@ document.querySelectorAll('.work-card[data-src]').forEach(card => {
 });
 
 // ---------- Contact form (Netlify) ----------
-const form = document.getElementById('contactForm');
-const formSuccess = document.getElementById('formSuccess');
-
+// The booking form submits natively to Netlify (data-netlify="true") so that
+// the reCAPTCHA challenge and the reference-photo file upload are handled
+// server-side. On success Netlify redirects to /thank-you/. We only enhance
+// the button's pressed state here — no fetch/AJAX interception.
+const form = document.getElementById('contactForm') || document.querySelector('form[name="contact"]');
 if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', () => {
     const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-
-    const data = new FormData(form);
-
-    try {
-      // Multipart POST (no manual Content-Type) so the reference photo uploads too
-      const res = await fetch('/', { method: 'POST', body: data });
-      if (res.ok) {
-        form.style.display = 'none';
-        if (formSuccess) {
-          formSuccess.textContent = "✅ Request sent! I'll get back to you within 24–48 hours.";
-          formSuccess.style.display = 'block';
-        }
-      } else {
-        throw new Error('Network error');
-      }
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Request Booking';
-      alert('Something went wrong. Please call or text instead: 602.935.7020');
-    }
+    if (btn) { btn.textContent = 'Sending…'; }
   });
 }
 
