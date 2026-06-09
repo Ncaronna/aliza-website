@@ -207,21 +207,28 @@ h3 { font-size: 1.2rem; }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 768px) {
-  .nav-toggle { display: flex; }
+  .nav-toggle {
+    display: flex;
+    position: relative;
+    z-index: 101; /* keep hamburger/X tappable above the open menu */
+  }
   .nav-links {
     position: fixed;
-    inset: var(--nav-h) 0 0 0;
-    background: rgba(10,10,10,0.97);
-    backdrop-filter: blur(20px);
+    top: 0; left: 0; right: 0; bottom: 0;        /* full screen — no transparent strip */
+    background: #0a0a0a;                          /* solid; no backdrop-filter (breaks on mobile) */
     flex-direction: column;
     justify-content: center;
-    gap: 40px;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+    padding: calc(var(--nav-h) + 24px) 24px 48px; /* clear the logo + hamburger */
+    overflow-y: auto;                             /* scroll instead of clipping on short screens */
     transform: translateX(100%);
     transition: transform 0.35s ease;
-    z-index: 99;
+    z-index: 95;                                  /* below nav (100) so logo + X stay on top */
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-links a { font-size: 1.2rem; }
+  .nav-links a { font-size: 1.3rem; }
   .nav-cta { display: none; }
 }
 
