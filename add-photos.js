@@ -15,7 +15,8 @@
  *   images/gallery/flash/     → Flash designs
  *
  * What this script does, for every source photo (.jpg/.jpeg/.png):
- *   1. Generates two optimized WebP versions next to it:
+ *   1. Generates two optimized WebP versions in images/optimized/<category>/
+ *      (kept OUT of your photo folders so they stay clean):
  *        <name>.webp     → full size (max 1400px wide)  — used in lightbox
  *        <name>-sm.webp  → mobile size (max 760px wide) — used on phones
  *      (Skips files that are already up to date, so re-runs are fast.)
@@ -36,6 +37,7 @@ const { execFileSync } = require('child_process');
 const GALLERY_HTML = path.join(__dirname, 'gallery.html');
 const INDEX_HTML   = path.join(__dirname, 'index.html');
 const GALLERY_DIR  = path.join(__dirname, 'images', 'gallery');
+const OPT_DIR      = path.join(__dirname, 'images', 'optimized'); // generated WebP lives here, not in the photo folders
 
 const SOURCE_EXTS = ['.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG'];
 
@@ -105,13 +107,16 @@ function getImages(category) {
   const sources = fs.readdirSync(dir)
     .filter(f => SOURCE_EXTS.includes(path.extname(f)) && !f.startsWith('.'));
 
+  const outDir = path.join(OPT_DIR, category);
+  fs.mkdirSync(outDir, { recursive: true });
+
   return sources.map(file => {
     const slug    = path.basename(file, path.extname(file));
     const srcPath = path.join(dir, file);
-    const fullRel = `images/gallery/${category}/${slug}.webp`;
-    const smRel   = `images/gallery/${category}/${slug}-sm.webp`;
-    makeWebp(srcPath, path.join(dir, `${slug}.webp`),    FULL_WIDTH);
-    makeWebp(srcPath, path.join(dir, `${slug}-sm.webp`), SM_WIDTH);
+    const fullRel = `images/optimized/${category}/${slug}.webp`;
+    const smRel   = `images/optimized/${category}/${slug}-sm.webp`;
+    makeWebp(srcPath, path.join(outDir, `${slug}.webp`),    FULL_WIDTH);
+    makeWebp(srcPath, path.join(outDir, `${slug}-sm.webp`), SM_WIDTH);
     return { slug, category, full: fullRel, sm: smRel, mtime: fs.statSync(srcPath).mtime };
   });
 }
