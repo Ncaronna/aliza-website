@@ -17,8 +17,8 @@
  * What this script does, for every source photo (.jpg/.jpeg/.png):
  *   1. Generates two optimized WebP versions in images/optimized/<category>/
  *      (kept OUT of your photo folders so they stay clean):
- *        <name>.webp     → full size (max 1400px wide)  — used in lightbox
- *        <name>-sm.webp  → mobile size (max 760px wide) — used on phones
+ *        <name>.webp     → full size (longest side max 1400px) — used in lightbox
+ *        <name>-sm.webp  → mobile size (longest side max 760px)  — used on phones
  *      (Skips files that are already up to date, so re-runs are fast.)
  *   2. Rewrites the gallery grid in gallery.html (between markers).
  *   3. Rewrites the 6 featured work cards on index.html with the
@@ -53,11 +53,11 @@ const SIZES = '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 30vw';
 const CATEGORIES = {
   realism:   { label: 'Realism',    style: 'Black & Grey',  alt: 'Black and grey realism tattoo by Aliza Nadine Phoenix AZ' },
   linework:  { label: 'Line Work',  style: 'Fine Line',     alt: 'Fine line tattoo by Aliza Nadine Phoenix AZ' },
-  blackwork: { label: 'Black Work', style: 'Black Work',    alt: 'Black work tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
-  coverups:  { label: 'Cover Ups',  style: 'Cover Up',      alt: 'Cover up tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
-  freehand:  { label: 'Free Hand',  style: 'Free Hand',     alt: 'Free hand tattoo by Aliza Nadine at Jacob J Ink Phoenix AZ' },
+  blackwork: { label: 'Black Work', style: 'Black Work',    alt: 'Black work tattoo by Aliza Nadine at Ink. Body Art Phoenix AZ' },
+  coverups:  { label: 'Cover Ups',  style: 'Cover Up',      alt: 'Cover up tattoo by Aliza Nadine at Ink. Body Art Phoenix AZ' },
+  freehand:  { label: 'Free Hand',  style: 'Free Hand',     alt: 'Free hand tattoo by Aliza Nadine at Ink. Body Art Phoenix AZ' },
   script:    { label: 'Script',     style: 'Script',        alt: 'Custom script lettering tattoo by Aliza Nadine Phoenix' },
-  flash:     { label: 'Flash',      style: 'Flash',         alt: 'Flash tattoo design by Aliza Nadine at Jacob J Ink Phoenix' },
+  flash:     { label: 'Flash',      style: 'Flash',         alt: 'Flash tattoo design by Aliza Nadine at Ink. Body Art Phoenix' },
 };
 
 // ─── Filename → readable title ──────────────────────────────────────────────
@@ -88,10 +88,25 @@ function titleFromSlug(slug, category) {
 // ─── WebP generation ────────────────────────────────────────────────────────
 let converted = 0;
 
-function makeWebp(srcPath, outPath, width) {
+function imageDims(p) {
+  const out = execFileSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', p]).toString();
+  const w = Number((out.match(/pixelWidth:\s*(\d+)/) || [])[1]);
+  const h = Number((out.match(/pixelHeight:\s*(\d+)/) || [])[1]);
+  return { w, h };
+}
+
+function makeWebp(srcPath, outPath, target) {
   // Skip if output exists and is newer than the source
   if (fs.existsSync(outPath) && fs.statSync(outPath).mtime >= fs.statSync(srcPath).mtime) return false;
-  execFileSync('cwebp', ['-quiet', '-q', String(QUALITY), '-resize', String(width), '0', srcPath, '-o', outPath]);
+  // Cap the LONGER side at `target`, and never upscale a smaller image
+  const { w, h } = imageDims(srcPath);
+  const args = ['-quiet', '-q', String(QUALITY)];
+  if (Math.max(w, h) > target) {
+    if (w >= h) args.push('-resize', String(target), '0'); // landscape → constrain width
+    else        args.push('-resize', '0', String(target)); // portrait  → constrain height
+  }
+  args.push(srcPath, '-o', outPath);
+  execFileSync('cwebp', args);
   // Preserve the source's modified time so "newest photos" ordering stays correct
   const srcMtime = fs.statSync(srcPath).mtime;
   fs.utimesSync(outPath, srcMtime, srcMtime);

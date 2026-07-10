@@ -659,6 +659,89 @@ h3 { font-size: 1.2rem; }
 .rating-detail .stars { font-size: 1.3rem; }
 .rating-count { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
 
+/* ---------- Rates / Pricing ---------- */
+.rates-bg { background: var(--bg2); }
+.rates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 640px;
+  margin: 44px auto 0;
+}
+.rate-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  text-align: center;
+}
+.rate-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--red-light);
+}
+.rate-price { font-size: 2.6rem; font-weight: 800; line-height: 1.1; margin: 8px 0 10px; }
+.rate-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+.flash-special {
+  position: relative;
+  overflow: hidden;
+  max-width: 640px;
+  margin: 22px auto 0;
+  text-align: center;
+  background: radial-gradient(ellipse 90% 120% at 50% 0%, rgba(179,18,23,0.16), transparent 70%), var(--glass);
+  border: 1px solid rgba(179,18,23,0.35);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+}
+.flash-badge {
+  display: inline-block;
+  background: rgba(179,18,23,0.14);
+  border: 1px solid rgba(179,18,23,0.4);
+  color: var(--red-light);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.flash-special h3 { margin: 16px 0 4px; font-size: 1.25rem; }
+.flash-special > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+.flash-prices {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.flash-price-item {
+  flex: 1;
+  min-width: 92px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 14px 10px;
+}
+.flash-size { display: block; font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+.flash-amt  { display: block; font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
+.rates-note {
+  max-width: 560px;
+  margin: 24px auto 0;
+  text-align: center;
+  background: rgba(179,18,23,0.08);
+  border: 1px solid rgba(179,18,23,0.22);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (max-width: 560px) {
+  .rates-grid { grid-template-columns: 1fr; }
+}
+
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
